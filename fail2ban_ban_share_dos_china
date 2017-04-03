@@ -1,0 +1,23 @@
+Using fail2bank filters to ban
+36.24.59.167 *********** - [03/Apr/2017:15:00:46 +0300] "POST /%d0%b3%d0%b0%d0%bb%d0%b5%d1%80%d0%b8%d1%8f/?share=email&nb=1 HTTP/1.1" 200 41175 "http://thaisp│····································································
+a.bg/%d0%b3%d0%b0%d0%bb%d0%b5%d1%80%d0%b8%d1%8f/?share=email&nb=1" "Mozilla/4.0 (compatible; MSIE 9.0; Windows NT 6.1)" - 5.060  
+
+
+
+/etc/fail2ban/filter.d/share-wordpress.conf
+[Definition]                                                                                                                                                            │····································································
+failregex = <HOST>.*POST.*(\?share=email\&nb=1).* 200
+
+
+Test it:
+fail2regex /var/log/nginx/access.lgo share-wordpress.conf
+
+
+Deploy it:
+[share-wordpress]                                                                                                                                                       │····································································
+enabled = true                                                                                                                                                          │····································································
+port = http,https                                                                                                                                                       │····································································
+filter  = share_wordpress                                                                                                                                               │····································································
+logpath  = /var/log/nginx/access.log                                                                                                                                    │····································································
+maxretry = 3                                                                                                                                                            │····································································
+bantime  = 360000                                                                                                                                                       
